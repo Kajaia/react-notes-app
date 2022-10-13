@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { getNotes } from "../../services/ApiService";
 
-function NoteList() {
+function NoteList(props) {
   const [notes, setNotes] = useState([]);
   useEffect(() => {
-    getNotes().then((res) => setNotes(res.data.data));
-  }, []);
+    getNotes({ perPage: props.perPage }).then((res) => setNotes(res.data.data));
+  }, [props.perPage]);
 
   return (
     <div className="row justify-content-center g-3 mt-3">

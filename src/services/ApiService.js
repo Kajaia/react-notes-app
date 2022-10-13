@@ -9,8 +9,8 @@ const api = axios.create({
   },
 });
 
-function getNotes() {
-  return api.get("/notes");
+function getNotes(params) {
+  return api.get("/notes", { params: params });
 }
 
 export { getNotes };
