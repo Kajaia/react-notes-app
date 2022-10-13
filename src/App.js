@@ -1,12 +1,10 @@
-import toast from "./components/alerts/toast";
+import NoteList from "./components/notes/NoteList";
 
 function App() {
   return (
-    <div>
-      <h1>Hey</h1>
-      <button onClick={() => toast("success", "Some title here", 2000)}>
-        Show toast
-      </button>
+    <div className="container my-3">
+      <h1 className="fw-bold text-center">Notes App</h1>
+      <NoteList />
     </div>
   );
 }
