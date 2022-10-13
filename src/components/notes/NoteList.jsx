@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
 import { getNotes } from "../../services/ApiService";
+import NotePagination from "./NotePagination";
 
 function NoteList(props) {
   const [notes, setNotes] = useState([]);
+  const [meta, setMeta] = useState({});
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    getNotes({ perPage: props.perPage, search: props.search }).then((res) =>
-      setNotes(res.data.data)
+    getNotes({ perPage: props.perPage, search: props.search, page: page }).then(
+      (res) => {
+        setNotes(res.data.data);
+        setMeta(res.data.meta);
+      }
     );
-  }, [props.perPage, props.search]);
+  }, [props.perPage, props.search, page]);
+
+  function handlePageChange(newPage) {
+    setPage(newPage);
+  }
 
   return (
     <div className="row justify-content-center g-3 mt-3">
@@ -24,6 +35,10 @@ function NoteList(props) {
             </div>
           </div>
         ))}
+      <NotePagination
+        meta={meta}
+        onClick={(newPage) => handlePageChange(newPage)}
+      />
     </div>
   );
 }
