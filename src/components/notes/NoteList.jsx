@@ -4,8 +4,10 @@ import { getNotes } from "../../services/ApiService";
 function NoteList(props) {
   const [notes, setNotes] = useState([]);
   useEffect(() => {
-    getNotes({ perPage: props.perPage }).then((res) => setNotes(res.data.data));
-  }, [props.perPage]);
+    getNotes({ perPage: props.perPage, search: props.search }).then((res) =>
+      setNotes(res.data.data)
+    );
+  }, [props.perPage, props.search]);
 
   return (
     <div className="row justify-content-center g-3 mt-3">
