@@ -2,7 +2,7 @@ function NotePagination(props) {
   const meta = props.meta;
 
   return (
-    <div className="col-lg-4">
+    <div className="col-lg-12 d-flex justify-content-center mt-4">
       <nav>
         <ul className="pagination">
           <li
