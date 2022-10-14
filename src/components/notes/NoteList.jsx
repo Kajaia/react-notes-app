@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getNotes } from "../../services/ApiService";
+import { getNotes, removeNote } from "../../services/ApiService";
 import NoteItem from "./NoteItem";
 import NotePagination from "./NotePagination";
+import toast from "../alerts/toast";
 
 function NoteList(props) {
   const [notes, setNotes] = useState([]);
@@ -21,10 +22,23 @@ function NoteList(props) {
     setPage(newPage);
   }
 
+  function handleRemove(id, title) {
+    removeNote(id);
+    const newNotes = notes.filter((note) => note.id !== id);
+    setNotes(newNotes);
+    toast("success", `"${title}" removed successfully`, 2000);
+  }
+
   return (
     <div className="row justify-content-center g-3 mt-3">
       {notes.length > 0 &&
-        notes.map((note) => <NoteItem key={note.id} note={note} />)}
+        notes.map((note) => (
+          <NoteItem
+            key={note.id}
+            note={note}
+            handleRemove={() => handleRemove(note.id, note.title)}
+          />
+        ))}
       {meta.total > props.perPage && (
         <NotePagination
           meta={meta}

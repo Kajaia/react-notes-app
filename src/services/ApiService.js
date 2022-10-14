@@ -13,4 +13,8 @@ function getNotes(params) {
   return api.get("/notes", { params: params });
 }
 
-export { getNotes };
+function removeNote(id) {
+  return api.delete(`/notes/${id}`);
+}
+
+export { getNotes, removeNote };
