@@ -27,7 +27,8 @@ function NoteList(props) {
   }
 
   function handleRemove(id, title) {
-    removeNote(id);
+    setIsLoading(true);
+    removeNote(id).then(() => setIsLoading(false));
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
     toast("success", `"${title}" removed successfully`, 2000);
