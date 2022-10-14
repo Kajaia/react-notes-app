@@ -3,17 +3,21 @@ import { getNotes, removeNote } from "../../services/ApiService";
 import NoteItem from "./NoteItem";
 import NotePagination from "./NotePagination";
 import toast from "../alerts/toast";
+import LoadingOverlay from "../spinners/LoadingOverlay";
 
 function NoteList(props) {
   const [notes, setNotes] = useState([]);
   const [meta, setMeta] = useState({});
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     getNotes({ perPage: props.perPage, search: props.search, page: page }).then(
       (res) => {
         setNotes(res.data.data);
         setMeta(res.data.meta);
+        setIsLoading(false);
       }
     );
   }, [props.perPage, props.search, page]);
@@ -45,6 +49,7 @@ function NoteList(props) {
           onClick={(newPage) => handlePageChange(newPage)}
         />
       )}
+      <LoadingOverlay isLoading={isLoading} />
     </div>
   );
 }
