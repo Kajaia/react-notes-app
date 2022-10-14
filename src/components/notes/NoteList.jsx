@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getNotes } from "../../services/ApiService";
+import NoteItem from "./NoteItem";
 import NotePagination from "./NotePagination";
 
 function NoteList(props) {
@@ -23,18 +24,7 @@ function NoteList(props) {
   return (
     <div className="row justify-content-center g-3 mt-3">
       {notes.length > 0 &&
-        notes.map((note) => (
-          <div className="col-12 col-md-6 col-lg-4" key={note.id}>
-            <div className={`card h-100 shadow-sm ${note.color}`}>
-              <div className="card-header">
-                <h4 className="mb-0">{note.title}</h4>
-              </div>
-              <div className="card-body">
-                <p className="mb-0">{note.description}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+        notes.map((note) => <NoteItem key={note.id} note={note} />)}
       {meta.total > props.perPage && (
         <NotePagination
           meta={meta}
