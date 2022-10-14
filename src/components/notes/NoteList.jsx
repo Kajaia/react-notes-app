@@ -35,10 +35,12 @@ function NoteList(props) {
             </div>
           </div>
         ))}
-      <NotePagination
-        meta={meta}
-        onClick={(newPage) => handlePageChange(newPage)}
-      />
+      {meta.total > props.perPage && (
+        <NotePagination
+          meta={meta}
+          onClick={(newPage) => handlePageChange(newPage)}
+        />
+      )}
     </div>
   );
 }
