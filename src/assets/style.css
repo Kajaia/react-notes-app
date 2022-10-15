@@ -4,9 +4,6 @@
 }
 
 .overlay {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -15,4 +12,28 @@
   background-color: #000;
   opacity: 0.5;
   z-index: 3;
+}
+
+.spinner-portal {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  z-index: 4;
+}
+
+.modal-portal {
+  position: fixed;
+  width: 500px;
+  max-width: 90%;
+  height: 400px;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  z-index: 5;
+}
+
+.scrollable {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 285px;
 }
