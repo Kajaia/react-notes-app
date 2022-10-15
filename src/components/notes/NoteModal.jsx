@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Modal from "../modals/Modal";
 
-function NoteAdd(props) {
+function NoteModal(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState({
-    title: "",
-    description: "",
-    color: "bg-white",
-    pinned: 0,
-    archived: 0,
+    id: props.note.id,
+    title: props.note.title,
+    description: props.note.description,
+    color: props.note.color ? props.note.color : "bg-white",
+    pinned: props.note.pinned ? props.note.pinned : 0,
+    archived: props.note.archived ? props.note.archived : 0,
   });
 
   function handleTitleChange(e) {
@@ -25,19 +26,24 @@ function NoteAdd(props) {
 
   return (
     <>
-      <div className="col-12">
-        <button
-          className="btn btn-sm btn-success shadow-sm rounded-2 px-3"
-          onClick={() => setIsOpen(true)}
-        >
-          Add note
-        </button>
-      </div>
-      <Modal isOpen={isOpen} title="Add note" onClose={() => setIsOpen(false)}>
+      <button
+        className="btn btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center action-btn"
+        title={props.heading}
+        onClick={() => setIsOpen(true)}
+      >
+        <i className={`fas fa-${props.icon} fa-sm`}></i>
+      </button>
+      <Modal
+        isOpen={isOpen}
+        title={props.heading}
+        onClose={() => setIsOpen(false)}
+      >
         <form
           className="d-flex flex-column"
           onSubmit={(e) => {
-            props.handleAdd(e, data);
+            props.icon === "plus"
+              ? props.handleAdd(e, data)
+              : props.handleEdit(e, data);
             setIsOpen(false);
           }}
         >
@@ -48,7 +54,7 @@ function NoteAdd(props) {
                 type="text"
                 id="title"
                 name="title"
-                defaultValue={data.title}
+                defaultValue={props.note.title}
                 onChange={(e) => handleTitleChange(e)}
                 className="form-control"
                 placeholder="Lorem ipsum"
@@ -60,7 +66,7 @@ function NoteAdd(props) {
               <textarea
                 id="description"
                 name="description"
-                defaultValue={data.description}
+                defaultValue={props.note.description}
                 onChange={(e) => handleDescriptionChange(e)}
                 className="form-control"
                 placeholder="Lorem ipsum dorlo, sit amet..."
@@ -82,4 +88,4 @@ function NoteAdd(props) {
   );
 }
 
-export default NoteAdd;
+export default NoteModal;

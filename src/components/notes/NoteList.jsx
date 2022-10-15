@@ -9,7 +9,7 @@ import NoteItem from "./NoteItem";
 import NotePagination from "./NotePagination";
 import toast from "../alerts/toast";
 import LoadingOverlay from "../spinners/LoadingOverlay";
-import NoteAdd from "./NoteAdd";
+import NoteModal from "./NoteModal";
 
 function NoteList(props) {
   const [notes, setNotes] = useState([]);
@@ -80,7 +80,14 @@ function NoteList(props) {
 
   return (
     <div className="row justify-content-center g-3 mt-1">
-      <NoteAdd handleAdd={(e, data) => handleAdd(e, data)} />
+      <div>
+        <NoteModal
+          note
+          icon="plus"
+          heading="Add note"
+          handleAdd={(e, data) => handleAdd(e, data)}
+        />
+      </div>
       {notes.length > 0 &&
         notes.map((note) => (
           <NoteItem
