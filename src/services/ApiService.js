@@ -14,11 +14,15 @@ function getNotes(params) {
 }
 
 function addNote(data) {
-  return api.post("notes", data);
+  return api.post("/notes", data);
+}
+
+function editNote(note) {
+  return api.put(`/notes/${note.id}`, note);
 }
 
 function removeNote(id) {
   return api.delete(`/notes/${id}`);
 }
 
-export { getNotes, addNote, removeNote };
+export { getNotes, addNote, editNote, removeNote };

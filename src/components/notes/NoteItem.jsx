@@ -1,3 +1,4 @@
+import NoteEdit from "./NoteEdit";
 import NoteRemove from "./NoteRemove";
 
 function NoteItem(props) {
@@ -9,6 +10,10 @@ function NoteItem(props) {
           <small className="mb-0">{props.note.description}</small>
         </div>
         <div className="card-footer d-flex align-items-center justify-content-center flex-wrap gap-2">
+          <NoteEdit
+            note={props.note}
+            handleEdit={(e, data) => props.handleEdit(e, data)}
+          />
           <NoteRemove handleRemove={props.handleRemove} />
         </div>
       </div>

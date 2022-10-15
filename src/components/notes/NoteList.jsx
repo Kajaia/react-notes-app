@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { addNote, getNotes, removeNote } from "../../services/ApiService";
+import {
+  addNote,
+  editNote,
+  getNotes,
+  removeNote,
+} from "../../services/ApiService";
 import NoteItem from "./NoteItem";
 import NotePagination from "./NotePagination";
 import toast from "../alerts/toast";
@@ -44,6 +49,23 @@ function NoteList(props) {
     });
   }
 
+  function handleEdit(e, note) {
+    e.preventDefault();
+    setIsLoading(true);
+    editNote(note).then((res) => {
+      if (res.status === 200) {
+        setIsLoading(false);
+        const newNotes = notes.map((obj) =>
+          obj.id === note.id
+            ? { ...obj, title: note.title, description: note.description }
+            : obj
+        );
+        setNotes(newNotes);
+        toast("success", `"${note.title}" updated successfully`, 2000);
+      }
+    });
+  }
+
   function handleRemove(id, title) {
     setIsLoading(true);
     removeNote(id).then((res) => {
@@ -64,6 +86,7 @@ function NoteList(props) {
           <NoteItem
             key={note.id}
             note={note}
+            handleEdit={(e, data) => handleEdit(e, data)}
             handleRemove={() => handleRemove(note.id, note.title)}
           />
         ))}
