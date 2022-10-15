@@ -12,15 +12,9 @@ function NoteModal(props) {
     archived: props.note.archived ? props.note.archived : 0,
   });
 
-  function handleTitleChange(e) {
+  function handleChange(e) {
     setData((prevData) => {
-      return { ...prevData, title: e.target.value };
-    });
-  }
-
-  function handleDescriptionChange(e) {
-    setData((prevData) => {
-      return { ...prevData, description: e.target.value };
+      return { ...prevData, [e.target.name]: e.target.value };
     });
   }
 
@@ -55,7 +49,7 @@ function NoteModal(props) {
                 id="title"
                 name="title"
                 defaultValue={props.note.title}
-                onChange={(e) => handleTitleChange(e)}
+                onChange={(e) => handleChange(e)}
                 className="form-control"
                 placeholder="Lorem ipsum"
                 required
@@ -67,7 +61,7 @@ function NoteModal(props) {
                 id="description"
                 name="description"
                 defaultValue={props.note.description}
-                onChange={(e) => handleDescriptionChange(e)}
+                onChange={(e) => handleChange(e)}
                 className="form-control"
                 placeholder="Lorem ipsum dorlo, sit amet..."
                 required
